@@ -2,3 +2,43 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+.card-content {
+  max-width: 100%;
+  background-color: #fff;
+  border-radius: 1rem;
+  padding: 4rem 0.5rem;
+  box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.card-content h3 {
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
+}
+
+.card-content p {
+  margin: 0 0 2rem 0;
+}
+
+input {
+  padding: 0.8rem 1rem;
+  width: 40%;
+  border-radius: 100vw;
+  outline: none;
+  border: 0.1rem solid #d1d1d1;
+}
+
+::placeholder {
+  color: #d1d1d1;
+}
+
+.subscribe-btn {
+  padding: 0.8rem 2rem;
+  border-radius: 100vw;
+  background: linear-gradient(90deg, #ff9966, #ff5e62);
+  color: #fff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

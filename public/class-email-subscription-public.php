@@ -20,7 +20,8 @@
  * @subpackage Email_Subscription/public
  * @author     Shaqeeb Akhtar <shaqeeb.akhtar@wisdmlabs.com>
  */
-class Email_Subscription_Public {
+class Email_Subscription_Public
+{
 
 	/**
 	 * The ID of this plugin.
@@ -47,11 +48,11 @@ class Email_Subscription_Public {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 	/**
@@ -59,7 +60,8 @@ class Email_Subscription_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -73,8 +75,7 @@ class Email_Subscription_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/email-subscription-public.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/email-subscription-public.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -82,7 +83,8 @@ class Email_Subscription_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -96,8 +98,26 @@ class Email_Subscription_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/email-subscription-public.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/email-subscription-public.js', array('jquery'), $this->version, false);
 	}
 
+	public function wsdm_email_subscription_shortcode()
+	{
+		ob_start();
+?>
+<div class="wrapper">
+    <form action="" class="card-content">
+        <div class="container">
+            <h3>Subscribe</h3>
+            <p>Subscribe to our newsletter and stay updated.</p>
+        </div>
+        <div class="form-input">
+            <input type="email" name="email" id="email" placeholder="Your Email">
+            <button class="subscribe-btn">Subscribe Me</button>
+        </div>
+    </form>
+</div>
+<?php
+		return ob_get_clean();
+	}
 }
