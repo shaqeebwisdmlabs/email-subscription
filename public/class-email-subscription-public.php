@@ -99,28 +99,65 @@ class Email_Subscription_Public
 		 */
 
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/email-subscription-public.js', array('jquery'), $this->version, false);
+		wp_localize_script($this->plugin_name, 'ajax_url', array('ajaxurl' => admin_url('admin-ajax.php')));
 	}
 
 	public function wsdm_email_subscription_shortcode()
 	{
 		ob_start();
 ?>
-<div class="wrapper">
-    <form action="" class="subscription-form" id="subscription-form">
-        <div class="container">
-            <h3>Subscribe</h3>
-            <p>Subscribe to our newsletter and stay updated.</p>
-        </div>
-        <div class="form-input">
-            <div class="input">
-                <input type="email" name="email" id="email" placeholder="Your Email">
-                <button class="subscribe-btn" id="subscribe-btn">Subscribe Me</button>
-            </div>
-            <div id="error-message"></div>
-        </div>
-    </form>
-</div>
+		<div class="wrapper">
+			<form action="" class="subscription-form" id="subscription-form">
+				<div class="container">
+					<h3>Newsletter Subscription</h3>
+					<p>Subscribe to our newsletter and stay updated.</p>
+				</div>
+				<div class="form-input">
+					<div class="input">
+						<input type="email" name="email" id="email" placeholder="Your Email">
+						<button class="subscribe-btn" id="subscribe-btn">Subscribe Me</button>
+					</div>
+					<div id="error-message"></div>
+				</div>
+			</form>
+			<div id="subscription-message"></div>
+		</div>
 <?php
 		return ob_get_clean();
+	}
+
+	public function wsdm_email_subscription()
+	{
+		$email = sanitize_email($_POST['email']);
+
+		global $wpdb;
+
+		$table_name = $wpdb->prefix . 'subscription_emails';
+
+		$result = $wpdb->insert($table_name, array(
+			'email' => $email,
+		));
+
+		if ($result) {
+			$headers = array(
+				'From:  shaqeeb.akhtar@wisdmlabs.com',
+				'Content-Type: text/html'
+			);
+			$subject = 'You have subscribed to our newsletter';
+			$message = 'Thank you for subscribing to our newsletter. You will receive updates and news from us.';
+			$sent = wp_mail($email, $subject, $message, $headers);
+
+			if ($sent) {
+				wp_send_json_success(array(
+					'message' => 'You have been subscribed successfully.'
+				));
+			}
+		} else {
+			wp_send_json_error(array(
+				'message' => 'An error occurred while processing your request.'
+			));
+		}
+
+		wp_die();
 	}
 }

@@ -6,7 +6,7 @@
   max-width: 100%;
   background-color: #fff;
   border-radius: 1rem;
-  padding: 2rem 2rem;
+  padding: 2.5rem 2.5rem;
   box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
   text-align: center;
 }
@@ -16,12 +16,11 @@ form {
 }
 
 .container h3 {
-  text-transform: uppercase;
   margin: 0;
 }
 
 .container p {
-  margin-block: 1rem;
+  margin-bottom: 1.5em;
 }
 
 .form-input {
@@ -36,7 +35,7 @@ form {
 }
 
 input {
-  width: 67%;
+  width: 65%;
   padding: 0.8rem 1rem;
   border-radius: 100vw;
   outline: none;
@@ -65,4 +64,9 @@ input {
   text-align: left;
   color: #d01c1c;
   font-size: 0.8125rem;
+}
+
+#subscription-message {
+  margin-top: 1.5em;
+  font-weight: 500;
 }

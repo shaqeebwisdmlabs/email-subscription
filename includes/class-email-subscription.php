@@ -176,7 +176,11 @@ class Email_Subscription
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
 		// registering shortcode
-		$this->loader->add_shortcode('subscription', $plugin_public, 'wsdm_email_subscription_shortcode');
+		add_shortcode('subscription-form', array($plugin_public, 'wsdm_email_subscription_shortcode'));
+
+		// ajax
+		$this->loader->add_action('wp_ajax_wsdm_email_subscription', $plugin_public, 'wsdm_email_subscription');
+		$this->loader->add_action('wp_ajax_nopriv_wsdm_email_subscription', $plugin_public, 'wsdm_email_subscription');
 	}
 
 	/**

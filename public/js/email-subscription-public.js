@@ -18,6 +18,22 @@ jQuery(document).ready(function ($) {
     }
 
     if (!error) {
+      $.ajax({
+        url: ajax_url.ajaxurl,
+        type: "POST",
+        data: {
+          action: "wsdm_email_subscription",
+          email: email,
+        },
+        success: function (response) {
+          console.log(response);
+          $("#subscription-message").text(response.data.message);
+        },
+        error: function (error) {
+          console.log(error);
+          $("#subscription-message").text(error.data.message);
+        },
+      });
     }
   });
 });

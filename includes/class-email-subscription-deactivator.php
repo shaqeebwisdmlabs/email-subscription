@@ -20,7 +20,8 @@
  * @subpackage Email_Subscription/includes
  * @author     Shaqeeb Akhtar <shaqeeb.akhtar@wisdmlabs.com>
  */
-class Email_Subscription_Deactivator {
+class Email_Subscription_Deactivator
+{
 
 	/**
 	 * Short Description. (use period)
@@ -29,8 +30,12 @@ class Email_Subscription_Deactivator {
 	 *
 	 * @since    1.0.0
 	 */
-	public static function deactivate() {
+	public static function deactivate()
+	{
+		global $wpdb;
+		$table_name = $wpdb->prefix . 'subscription_emails';
 
+		$sql = "TRUNCATE `$table_name`;";
+		$wpdb->query($sql);
 	}
-
 }
