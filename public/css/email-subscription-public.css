@@ -2,28 +2,42 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
-
-.card-content {
+.wrapper {
   max-width: 100%;
   background-color: #fff;
   border-radius: 1rem;
-  padding: 4rem 0.5rem;
+  padding: 2rem 2rem;
   box-shadow: 1px 1px 2rem rgba(0, 0, 0, 0.3);
   text-align: center;
 }
 
-.card-content h3 {
-  text-transform: uppercase;
-  margin: 0 0 1rem 0;
+form {
+  width: 100%;
 }
 
-.card-content p {
-  margin: 0 0 2rem 0;
+.container h3 {
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.container p {
+  margin-block: 1rem;
+}
+
+.form-input {
+  width: 100%;
+}
+
+.form-input .input {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 input {
+  width: 67%;
   padding: 0.8rem 1rem;
-  width: 40%;
   border-radius: 100vw;
   outline: none;
   border: 0.1rem solid #d1d1d1;
@@ -34,11 +48,21 @@ input {
 }
 
 .subscribe-btn {
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 100vw;
   background: linear-gradient(90deg, #ff9966, #ff5e62);
   color: #fff;
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+#email.error {
+  border-color: #d01c1c;
+}
+
+#error-message {
+  text-align: left;
+  color: #d01c1c;
+  font-size: 0.8125rem;
 }

@@ -106,14 +106,17 @@ class Email_Subscription_Public
 		ob_start();
 ?>
 <div class="wrapper">
-    <form action="" class="card-content">
+    <form action="" class="subscription-form" id="subscription-form">
         <div class="container">
             <h3>Subscribe</h3>
             <p>Subscribe to our newsletter and stay updated.</p>
         </div>
         <div class="form-input">
-            <input type="email" name="email" id="email" placeholder="Your Email">
-            <button class="subscribe-btn">Subscribe Me</button>
+            <div class="input">
+                <input type="email" name="email" id="email" placeholder="Your Email">
+                <button class="subscribe-btn" id="subscribe-btn">Subscribe Me</button>
+            </div>
+            <div id="error-message"></div>
         </div>
     </form>
 </div>
