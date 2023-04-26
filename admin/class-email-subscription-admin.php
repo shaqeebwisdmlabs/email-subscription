@@ -20,7 +20,8 @@
  * @subpackage Email_Subscription/admin
  * @author     Shaqeeb Akhtar <shaqeeb.akhtar@wisdmlabs.com>
  */
-class Email_Subscription_Admin {
+class Email_Subscription_Admin
+{
 
 	/**
 	 * The ID of this plugin.
@@ -47,11 +48,11 @@ class Email_Subscription_Admin {
 	 * @param      string    $plugin_name       The name of this plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+	public function __construct($plugin_name, $version)
+	{
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-
 	}
 
 	/**
@@ -59,7 +60,8 @@ class Email_Subscription_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -73,8 +75,7 @@ class Email_Subscription_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/email-subscription-admin.css', array(), $this->version, 'all' );
-
+		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/email-subscription-admin.css', array(), $this->version, 'all');
 	}
 
 	/**
@@ -82,7 +83,8 @@ class Email_Subscription_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts()
+	{
 
 		/**
 		 * This function is provided for demonstration purposes only.
@@ -96,8 +98,31 @@ class Email_Subscription_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/email-subscription-admin.js', array( 'jquery' ), $this->version, false );
-
+		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/email-subscription-admin.js', array('jquery'), $this->version, false);
 	}
 
+	public function wsdm_register_admin_menu()
+	{
+		add_menu_page("Subscription Settings", "Subscription Settings", "manage_options", "subscription-settings", array($this, "wsdm_admin_menu_display"), "dashicons-bell", 6);
+	}
+
+	public function wsdm_admin_menu_display()
+	{
+		require_once 'partials/email-subscription-admin-display.php';
+	}
+
+	function wsdm_subscription_settings()
+	{
+		register_setting('subscription', 'post_count_input');
+		add_settings_section('post_count_settings', 'Post Count Settings', '', 'subscription');
+		add_settings_field('post_count_input', 'Post Count', array($this, 'wsdm_subscription_post_count_field'), 'subscription', 'post_count_settings');
+	}
+
+	public function wsdm_subscription_post_count_field()
+	{
+?>
+<input type="number" name="post_count_input" min="0" value="<?php echo get_option('post_count_input'); ?>" required>
+
+<?php
+	}
 }

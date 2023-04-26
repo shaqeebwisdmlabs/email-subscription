@@ -158,6 +158,12 @@ class Email_Subscription
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+
+		// register admin menu
+		$this->loader->add_action('admin_menu', $plugin_admin, 'wsdm_register_admin_menu');
+
+		// register settings fields
+		$this->loader->add_action('admin_init', $plugin_admin, 'wsdm_subscription_settings');
 	}
 
 	/**
