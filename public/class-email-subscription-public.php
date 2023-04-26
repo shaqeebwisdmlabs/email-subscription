@@ -106,22 +106,22 @@ class Email_Subscription_Public
 	{
 		ob_start();
 ?>
-		<div class="wrapper">
-			<form action="" class="subscription-form" id="subscription-form">
-				<div class="container">
-					<h3>Newsletter Subscription</h3>
-					<p>Subscribe to our newsletter and stay updated.</p>
-				</div>
-				<div class="form-input">
-					<div class="input">
-						<input type="email" name="email" id="email" placeholder="Your Email">
-						<button class="subscribe-btn" id="subscribe-btn">Subscribe Me</button>
-					</div>
-					<div id="error-message"></div>
-				</div>
-			</form>
-			<div id="subscription-message"></div>
-		</div>
+<div class="wrapper">
+    <form action="" class="subscription-form" id="subscription-form">
+        <div class="container">
+            <h3>Newsletter Subscription</h3>
+            <p>Subscribe to our newsletter and stay updated.</p>
+        </div>
+        <div class="form-input">
+            <div class="input">
+                <input type="email" name="email" id="email" placeholder="Your Email">
+                <button class="subscribe-btn" id="subscribe-btn">Subscribe Me</button>
+            </div>
+            <div id="error-message"></div>
+        </div>
+    </form>
+    <div id="subscription-message"></div>
+</div>
 <?php
 		return ob_get_clean();
 	}
@@ -139,13 +139,8 @@ class Email_Subscription_Public
 		));
 
 		if ($result) {
-			$headers = array(
-				'From:  shaqeeb.akhtar@wisdmlabs.com',
-				'Content-Type: text/html'
-			);
-			$subject = 'You have subscribed to our newsletter';
-			$message = 'Thank you for subscribing to our newsletter. You will receive updates and news from us.';
-			$sent = wp_mail($email, $subject, $message, $headers);
+
+			$sent = $this->wsdm_post_email($email);
 
 			if ($sent) {
 				wp_send_json_success(array(
@@ -159,5 +154,37 @@ class Email_Subscription_Public
 		}
 
 		wp_die();
+	}
+
+	public function wsdm_post_email($email)
+	{
+		$headers = array(
+			'From:  shaqeeb.akhtar@wisdmlabs.com',
+			'Content-Type: text/html'
+		);
+		$subject = 'You have subscribed to our newsletter';
+		$message = 'Thank you for subscribing to our newsletter. You will receive updates and news from us.';
+
+		$post_count = get_option('post_count_input', 1);
+
+		$args = array(
+			'post_type' => 'post',
+			'post_status' => 'publish',
+			'posts_per_page' => $post_count,
+			'orderby' => 'date',
+			'order' => 'DESC',
+		);
+		$query = new WP_Query($args);
+
+		$message = 'Some latest posts:' . "\n";
+		while ($query->have_posts()) {
+			$query->the_post();
+			$message .= '----------' . "\n";
+			$message .= 'Title: ' . get_the_title() . "\n";
+			$message .= 'URL: ' . get_permalink() . "\n";
+		}
+
+		// send email
+		return wp_mail($email, $subject, $message, $headers);
 	}
 }

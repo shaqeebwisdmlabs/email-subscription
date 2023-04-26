@@ -121,7 +121,7 @@ class Email_Subscription_Admin
 	public function wsdm_subscription_post_count_field()
 	{
 ?>
-<input type="number" name="post_count_input" min="0" value="<?php echo get_option('post_count_input'); ?>" required>
+		<input type="number" name="post_count_input" min="0" value="<?php echo get_option('post_count_input'); ?>" required>
 
 <?php
 	}
