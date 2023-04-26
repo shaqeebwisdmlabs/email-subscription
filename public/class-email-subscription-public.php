@@ -106,22 +106,22 @@ class Email_Subscription_Public
 	{
 		ob_start();
 ?>
-		<div class="wrapper">
-			<form action="" class="subscription-form" id="subscription-form">
-				<div class="container">
-					<h3>Newsletter Subscription</h3>
-					<p>Subscribe to our newsletter and stay updated.</p>
-				</div>
-				<div class="form-input">
-					<div class="input">
-						<input type="email" name="email" id="email" placeholder="Your Email">
-						<button class="subscribe-btn" id="subscribe-btn">Subscribe Me</button>
-					</div>
-					<div id="error-message"></div>
-				</div>
-			</form>
-			<div id="subscription-message"></div>
-		</div>
+<div class="wrapper">
+    <form action="" class="subscription-form" id="subscription-form">
+        <div class="container">
+            <h3>Newsletter Subscription</h3>
+            <p>Subscribe to our newsletter and stay updated.</p>
+        </div>
+        <div class="form-input">
+            <div class="input">
+                <input type="email" name="email" id="email" placeholder="Your Email">
+                <button class="subscribe-btn" id="subscribe-btn">Subscribe Me</button>
+            </div>
+            <div id="error-message"></div>
+        </div>
+    </form>
+    <div id="subscription-message"></div>
+</div>
 <?php
 		return ob_get_clean();
 	}
@@ -159,11 +159,11 @@ class Email_Subscription_Public
 	public function wsdm_post_email($email)
 	{
 		$headers = array(
-			'From:  shaqeeb.akhtar@wisdmlabs.com',
-			'Content-Type: text/html'
+			'From: Shaqeeb Akhtar <shaqeeb.akhtar@wisdmlabs.com>',
+			'Content-Type: text'
 		);
 		$subject = 'You have subscribed to our newsletter';
-		$message = 'Thank you for subscribing to our newsletter. You will receive updates and news from us. Here are Some latest posts:' . '\n';
+		$message = 'Thank you for subscribing to our newsletter. You will receive updates and news from us. For now, you can go through some of the latest posts:' . "\n";
 
 		$post_count = get_option('post_count_input', 1);
 
